@@ -1,1 +1,55 @@
+Keplan-Meler survival curve -> survival data
 
+brca_surv <- brca_sub |>
+  filter(
+    !is.na(os_months),
+    !is.na(os_status),
+    !is.na(subtype)
+  ) |>
+  mutate(
+    os_event = if_else(os_status == "1:DECEASED", 1L, 0L)
+  )
+
+# KM curve by molecular subtype
+
+library(survival)
+library(survminer)
+
+km_subtype <- survfit(
+  Surv(os_months, os_event) ~ subtype,
+  data = brca_surv
+)
+
+ggsurvplot(
+  km_subtype,
+  data        = brca_surv,
+  pval        = TRUE,
+  pval.method = TRUE,     # show "Log-rank" label
+  conf.int    = FALSE,    # cleaner with 4 groups
+  risk.table  = TRUE,
+  risk.table.height = 0.3,
+  palette     = subtype_colours,
+  legend.title = "Subtype",
+  xlab = "Time (months)",
+  ylab = "Overall survival probability",
+  title = "OS by molecular subtype — BRCA TCGA",
+  ggtheme = theme_minimal(base_size = 11)
+)
+
+# median survival/ subtype
+surv_median(km_subtype)
+
+#Pairwisw log-rank tests
+pairwise_survdiff(
+  Surv(os_months, os_event) ~ subtype,
+  data = brca_surv,
+  p.adjust.method = "BH"   # Benjamini-Hochberg correction
+)
+
+#Cox model
+cox_model <- coxph(Surv(os_months, os_event) ~ subtype + age + stage, data = brca_surv)
+
+  summary(cox_model)
+
+#Forest plot
+ggforest(cox_model, data = brca_surv)
