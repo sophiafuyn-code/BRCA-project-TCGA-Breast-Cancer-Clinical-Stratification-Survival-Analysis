@@ -1,6 +1,6 @@
 # TCGA-Breast-Cancer-Clinical-Stratification-Survival-Analysis
 
-This project is an analysis of clincial and genomic data from 1,108 breast cancer patients in the TCGA  BRCA cohort.The goal of this analysis is to classify patients by molecular subtype ( HE=/ HER2-, triple -negative , HR+/HER2+, HER2+ HR-) and their associations to overall survival (OS) and disease free survival using standard oncology statistical analysis on R. This work is done independently as practice for the concepts I learnt during my undergraduate studies and also some new statistical analysis I learnt using platforms such as Youtube.
+This project is an analysis of clincial and genomic data from 1,108 breast cancer patients in the TCGA  BRCA cohort.The goal of this analysis is to classify patients by molecular subtype ( HE+/ HER2-, triple -negative , HR+/HER2+, HER2+ HR-) and their associations to overall survival (OS) and disease free survival using standard oncology statistical analysis on R. This work is done independently as practice for the concepts I learnt during my undergraduate studies and also some new statistical analysis I learnt using platforms such as Youtube.
 
 ## Dataset 
 
